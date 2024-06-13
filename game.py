@@ -3,6 +3,7 @@ import pygame
 class Game:
 
     def __init__(self):
+        pygame.init()
         self.window = pygame.display.set_mode((1000, 800))
         self.main_game_loop()
         
@@ -18,7 +19,5 @@ class Game:
                 quit()
     
     def draw(self):
-        pygame.draw.rect(self.window, (0, 255, 0), self.get_hitbox())
-
-    def get_hitbox(self):
-        return pygame.Rect(500, 400, 20, 20)
+        pygame.draw.rect(self.window, (0, 255, 0), pygame.Rect(500, 400, 20, 20))
+        pygame.display.update()
