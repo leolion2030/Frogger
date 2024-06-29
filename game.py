@@ -23,3 +23,14 @@ class Game:
     def draw(self):
         self.game_obj.draw(self.window)
         pygame.display.update()
+
+    def key_handler(self):
+        pressed_keys = pygame.key.get_pressed()
+        if pressed_keys[pygame.K_w] == True:
+            self.player.y -= self.player.speed
+        elif pressed_keys[pygame.K_s] == True:
+            self.player.y += self.player.speed
+        elif pressed_keys[pygame.K_a] == True:
+            self.player.x -= self.player.speed
+        elif pressed_keys[pygame.K_d] == True:
+            self.player.x += self.player.speed
