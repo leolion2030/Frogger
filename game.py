@@ -18,7 +18,7 @@ class Game:
             self.clock.tick(self.fps)
             self.event_handler()
             self.key_handler()
-            self.move()
+            self.car_move()
             self.draw()
 
     def event_handler(self):
@@ -26,6 +26,15 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w:
+                    self.player.y -= 20
+                if event.key == pygame.K_s:
+                    self.player.y += 20
+                if event.key == pygame.K_a:
+                    self.player.x -= 20
+                if event.key == pygame.K_d:
+                    self.player.x += 20
 
     def draw(self):
         self.game_obj.draw(self.window)
@@ -34,12 +43,13 @@ class Game:
         pygame.display.update()
 
     def key_handler(self):
+        return
         wait = pygame.time.get_ticks()
         pressed_keys = pygame.key.get_pressed()
         if pressed_keys[pygame.K_w] == True:
             self.player.y -= 5
-            if wait >= 1999:
-                
+            if wait >= 2000:
+                pass
         elif pressed_keys[pygame.K_s] == True:
             self.player.y += 5
         elif pressed_keys[pygame.K_a] == True:
