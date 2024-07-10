@@ -9,8 +9,13 @@ class Game:
         self.clock = pygame.time.Clock()
         self.fps = 60
         self.game_obj = GameObj(0, 0, 50 ,50)
-        self.player = GameObj(500, 500, 20, 20)
-        self.car = GameObj(0, 400, 60, 20 )
+        self.player = GameObj(500, 760, 40, 40)
+        self.car = GameObj(0, 600, 160, 40)
+        self.raft = GameObj(0, 400, 160, 40,)
+        self.starting_point = GameObj(0, 760, 1000, 40)
+        self.road = GameObj(0, 560, 1000, 200)
+        self.safe = GameObj(0, 520, 1000, 40)
+        self.water = GameObj(0, 320, 1000, 200)
         self.main_game_loop()
         
     def main_game_loop(self):
@@ -18,7 +23,7 @@ class Game:
             self.clock.tick(self.fps)
             self.event_handler()
             self.key_handler()
-            self.car_move()
+            self.move()
             self.draw()
 
     def event_handler(self):
@@ -28,18 +33,23 @@ class Game:
                 quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
-                    self.player.y -= 20
+                    self.player.y -= 40
                 if event.key == pygame.K_s:
-                    self.player.y += 20
+                    self.player.y += 40
                 if event.key == pygame.K_a:
-                    self.player.x -= 20
+                    self.player.x -= 40
                 if event.key == pygame.K_d:
-                    self.player.x += 20
+                    self.player.x += 40
 
     def draw(self):
-        self.game_obj.draw(self.window)
-        self.player.draw(self.window)
-        self.car.draw(self.window)
+        self.starting_point.draw(self.window, (255, 255, 0))
+        self.road.draw(self.window,(0, 0, 0))
+        self.safe.draw(self.window, (255, 255, 0))
+        self.water.draw(self.window, (0, 0, 255))
+        self.game_obj.draw(self.window, (0, 255, 0))
+        self.car.draw(self.window, (255, 0, 0))
+        self.raft.draw(self.window, (255, 0 ,255))
+        self.player.draw(self.window, (0, 255, 0))
         pygame.display.update()
 
     def key_handler(self):
@@ -57,5 +67,10 @@ class Game:
         elif pressed_keys[pygame.K_d] == True:
             self.player.x += 5
 
-    def car_move(self):
+    def move(self):
         self.car.x += 10
+        self.raft.x += 10
+        if self.car.x >= 1000:
+            self.car.x = 0 - self.raft.width
+        if self.raft.x >= 1000:
+            self.raft.x = 0 - self.raft.width
