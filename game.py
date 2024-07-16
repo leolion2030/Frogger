@@ -24,6 +24,7 @@ class Game:
             self.event_handler()
             self.key_handler()
             self.move()
+            self.collide()
             self.draw()
 
     def event_handler(self):
@@ -74,3 +75,7 @@ class Game:
             self.car.x = 0 - self.raft.width
         if self.raft.x >= 1000:
             self.raft.x = 0 - self.raft.width
+
+    def collide(self):
+        if pygame.Rect.colliderect(self.player, self.car):
+            print("hi")
