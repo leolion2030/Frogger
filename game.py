@@ -77,5 +77,5 @@ class Game:
             self.raft.x = 0 - self.raft.width
 
     def collide(self):
-        if pygame.Rect.colliderect(self.player, self.car):
+        if self.player.get_hitbox().colliderect(self.car.get_hitbox()) == True:
             print("hi")
