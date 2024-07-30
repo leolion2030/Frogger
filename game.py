@@ -16,6 +16,7 @@ class Game:
         self.road = GameObj(0, 560, 1000, 200)
         self.safe = GameObj(0, 520, 1000, 40)
         self.water = GameObj(0, 320, 1000, 200)
+        self.player_speed = 40
         self.main_game_loop()
         
     def main_game_loop(self):
@@ -34,13 +35,13 @@ class Game:
                 quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w:
-                    self.player.y -= 40
+                    self.player.y -= self.player_speed
                 if event.key == pygame.K_s:
-                    self.player.y += 40
+                    self.player.y += self.player_speed
                 if event.key == pygame.K_a:
-                    self.player.x -= 40
+                    self.player.x -= self.player_speed
                 if event.key == pygame.K_d:
-                    self.player.x += 40
+                    self.player.x += self.player_speed
 
     def draw(self):
         self.starting_point.draw(self.window, (255, 255, 0))
@@ -78,4 +79,8 @@ class Game:
 
     def collide(self):
         if self.player.get_hitbox().colliderect(self.car.get_hitbox()) == True:
-            print("hi")
+            print("Your Dead")
+        if self.player.get_hitbox().colliderect(self.raft.get_hitbox()) == True:
+            self.player.x += 10
+        if self.player.get_hitbox().colliderect(self.water.get_hitbox()) == True and self.player.get_hitbox().colliderect(self.raft.get_hitbox()) != True:
+            print("Your Dead")
