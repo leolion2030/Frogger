@@ -16,6 +16,11 @@ class Game:
         self.road = GameObj(0, 560, 1000, 200)
         self.safe = GameObj(0, 520, 1000, 40)
         self.water = GameObj(0, 320, 1000, 200)
+        self.checkpoint1 = GameObj(40, 240, 80, 80)
+        self.checkpoint2 = GameObj(240, 240, 80, 80)
+        self.checkpoint3 = GameObj(440, 240, 80, 80)
+        self.checkpoint4 = GameObj(640, 240, 80, 80)
+        self.checkpoint5 = GameObj(840, 240, 80, 80)
         self.player_speed = 40
         self.main_game_loop()
         
@@ -49,9 +54,15 @@ class Game:
         self.safe.draw(self.window, (255, 255, 0))
         self.water.draw(self.window, (0, 0, 255))
         self.game_obj.draw(self.window, (0, 255, 0))
+        self.checkpoint1.draw(self.window, (0, 255, 0))
+        self.checkpoint2.draw(self.window, (0, 255, 0))
+        self.checkpoint3.draw(self.window, (0, 255, 0))
+        self.checkpoint4.draw(self.window, (0, 255, 0))
+        self.checkpoint5.draw(self.window, (0, 255, 0))
         self.car.draw(self.window, (255, 0, 0))
         self.raft.draw(self.window, (255, 0 ,255))
         self.player.draw(self.window, (0, 255, 0))
+        
         pygame.display.update()
 
     def key_handler(self):
