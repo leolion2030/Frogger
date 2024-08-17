@@ -12,6 +12,8 @@ class Game:
         self.player = GameObj(500, 760, 40, 40)
         self.car = GameObj(0, 600, 160, 40)
         self.raft = GameObj(0, 400, 160, 40,)
+        #Make the fly go randomly(maybe a command?)
+        self.fly = GameObj(0, 320, 20, 20)
         self.starting_point = GameObj(0, 760, 1000, 40)
         self.road = GameObj(0, 560, 1000, 200)
         self.safe = GameObj(0, 520, 1000, 40)
@@ -22,6 +24,8 @@ class Game:
         self.checkpoint4 = GameObj(640, 240, 80, 80)
         self.checkpoint5 = GameObj(840, 240, 80, 80)
         self.player_speed = 40
+        self.score = 0
+        self.has_fly = False
         self.main_game_loop()
         
     def main_game_loop(self):
@@ -61,6 +65,7 @@ class Game:
         self.checkpoint5.draw(self.window, (0, 255, 0))
         self.car.draw(self.window, (255, 0, 0))
         self.raft.draw(self.window, (255, 0 ,255))
+        self.fly.draw(self.window, (0, 0, 100))
         self.player.draw(self.window, (0, 255, 0))
         
         pygame.display.update()
@@ -95,3 +100,10 @@ class Game:
             self.player.x += 10
         if self.player.get_hitbox().colliderect(self.water.get_hitbox()) == True and self.player.get_hitbox().colliderect(self.raft.get_hitbox()) != True:
             print("Your Dead")
+        if self.player.get_hitbox().colliderect(self.fly.get_hitbox()) == True:
+            #make it go to another random place#
+            self.has_fly = True
+        if self.player.get_hitbox().colliderect(self.checkpoint1.get_hitbox()) == True and self.has_fly == True:
+            self.score += 1
+            self.has_fly = False
+            print("Score: " , self.score)
