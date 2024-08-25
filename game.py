@@ -29,6 +29,10 @@ class Game:
         self.score = 0
         self.has_fly = False
         self.limit_chk1 = 0
+        self.limit_chk2 = 0
+        self.limit_chk3 = 0
+        self.limit_chk4 = 0
+        self.limit_chk5 = 0
         self.main_game_loop()
         
     def main_game_loop(self):
@@ -113,3 +117,27 @@ class Game:
                 self.has_fly = False
                 print("Score: " , self.score)
                 self.limit_chk1 += 1
+        if self.player.get_hitbox().colliderect(self.checkpoint2.get_hitbox()) == True and self.has_fly == True:
+            if self.limit_chk2 == 0:     
+                self.score += 1
+                self.has_fly = False
+                print("Score: " , self.score)
+                self.limit_chk2 += 1
+        if self.player.get_hitbox().colliderect(self.checkpoint3.get_hitbox()) == True and self.has_fly == True:
+            if self.limit_chk3 == 0:     
+                self.score += 1
+                self.has_fly = False
+                print("Score: " , self.score)
+                self.limit_chk3 += 1
+        if self.player.get_hitbox().colliderect(self.checkpoint4.get_hitbox()) == True and self.has_fly == True:
+            if self.limit_chk4 == 0:     
+                self.score += 1
+                self.has_fly = False
+                print("Score: " , self.score)
+                self.limit_chk4 += 1
+        if self.player.get_hitbox().colliderect(self.checkpoint5.get_hitbox()) == True and self.has_fly == True:
+            if self.limit_chk5 == 0:     
+                self.score += 1
+                self.has_fly = False
+                print("Score: " , self.score)
+                self.limit_chk5 += 1
