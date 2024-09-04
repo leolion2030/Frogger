@@ -32,6 +32,8 @@ class Game:
         self.checkpoint4 = GameObj(640, 240, 80, 80)
         self.checkpoint5 = GameObj(840, 240, 80, 80)
 
+        self.lock_chkpoint = []
+
         self.background_behind = GameObj(0, 0, 1000, 800)
         self.player_speed = 40
         self.score = 0
@@ -80,6 +82,7 @@ class Game:
         self.checkpoint3.draw(self.window, (0, 255, 0))
         self.checkpoint4.draw(self.window, (0, 255, 0))
         self.checkpoint5.draw(self.window, (0, 255, 0))
+        self.fly_display()
         self.car.draw(self.window, (255, 0, 0))
 
         self.raft1.draw(self.window, (255, 0 ,255))
@@ -121,17 +124,18 @@ class Game:
 
     def collide(self):
         if self.player.get_hitbox().colliderect(self.car.get_hitbox()) == True:
-            print("Your Dead")
+            print("Your Dead Car")
 
         if self.player.get_hitbox().colliderect(self.raft1.get_hitbox()) == True:
             self.player.x += self.raft_speed
         if self.player.get_hitbox().colliderect(self.raft2.get_hitbox()) == True:
-            self.player.x += self.raft_speed
+            self.player.x -= self.raft_speed
         if self.player.get_hitbox().colliderect(self.raft3.get_hitbox()) == True:
             self.player.x += self.raft_speed
 
-        if self.player.get_hitbox().colliderect(self.water.get_hitbox()) == True and self.player.get_hitbox().colliderect(self.raft1.get_hitbox()) or self.player.get_hitbox().colliderect(self.raft2.get_hitbox()) or self.player.get_hitbox().colliderect(self.raft3.get_hitbox())!= True:
-            print("Your Dead")
+        if self.player.get_hitbox().colliderect(self.water.get_hitbox()) == True:
+            if self.player.get_hitbox().colliderect(self.raft1.get_hitbox()) != True and self.player.get_hitbox().colliderect(self.raft2.get_hitbox()) != True and self.player.get_hitbox().colliderect(self.raft3.get_hitbox()) != True:
+                print("Your Dead Water")
         if self.player.get_hitbox().colliderect(self.fly.get_hitbox()) == True:
             if self.fly.x >= 1000:
                     self.fly.x = random.randint(0, 980)
@@ -143,12 +147,12 @@ class Game:
                 self.fly.x += self.raft_speed
         if self.player.get_hitbox().colliderect(self.checkpoint1.get_hitbox()) == True and self.has_fly >= 1:
             if self.limit_chk1 == 0: 
-                if self.has_fly >= 1:    
+                if self.has_fly >= 1:
                     self.score += 1
                     self.has_fly -= 1
                     print("Score: " , self.score)
                     self.limit_chk1 += 1
-                    self.fly_display(self.checkpoint2.x, self.checkpoint1.y)
+                    self.lock_chkpoint.append("chkpnt1")
         if self.player.get_hitbox().colliderect(self.checkpoint2.get_hitbox()) == True and self.has_fly >= 1:
             if self.limit_chk2 == 0: 
                 if self.has_fly >= 1:    
@@ -178,7 +182,8 @@ class Game:
                     print("Score: " , self.score)
                     self.limit_chk5 += 1
 
-    def fly_display(self, chck_x, chck_y):
-        self.fly_complete = GameObj(chck_x, chck_y, 40, 40)
-        self.fly_complete.draw(self.window, (0, 0, 100))
-        pygame.display.update()
+    def fly_display(self):
+        if "chkpnt1" in self.lock_chkpoint:
+            self.fly_complete = GameObj(self.checkpoint1.x, self.checkpoint1.y, 40, 40)
+            self.fly_complete.draw(self.window, (0, 0, 100))
+        
