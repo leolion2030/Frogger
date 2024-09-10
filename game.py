@@ -125,6 +125,8 @@ class Game:
     def collide(self):
         if self.player.get_hitbox().colliderect(self.car.get_hitbox()) == True:
             print("Your Dead Car")
+            self.player.x = 500
+            self.player.y = 760
 
         if self.player.get_hitbox().colliderect(self.raft1.get_hitbox()) == True:
             self.player.x += self.raft_speed
@@ -160,6 +162,7 @@ class Game:
                     self.has_fly -= 1
                     print("Score: " , self.score)
                     self.limit_chk2 += 1
+                    self.lock_chkpoint.append("chkpnt2")
         if self.player.get_hitbox().colliderect(self.checkpoint3.get_hitbox()) == True and self.has_fly >= 1:
             if self.limit_chk3 == 0:
                 if self.has_fly >= 1:     
@@ -167,6 +170,7 @@ class Game:
                     self.has_fly -= 1
                     print("Score: " , self.score)
                     self.limit_chk3 += 1
+                    self.lock_chkpoint.append("chkpnt3")
         if self.player.get_hitbox().colliderect(self.checkpoint4.get_hitbox()) == True and self.has_fly >= 1:
             if self.limit_chk4 == 0:
                 if self.has_fly >= 1:
@@ -174,6 +178,7 @@ class Game:
                     self.has_fly -= 1
                     print("Score: " , self.score)
                     self.limit_chk4 += 1
+                    self.lock_chkpoint.append("chkpnt4")
         if self.player.get_hitbox().colliderect(self.checkpoint5.get_hitbox()) == True and self.has_fly >= 1:
             if self.limit_chk5 == 0:     
                 if self.has_fly >= 1:
@@ -181,9 +186,22 @@ class Game:
                     self.has_fly -= 1
                     print("Score: " , self.score)
                     self.limit_chk5 += 1
+                    self.lock_chkpoint.append("chkpnt5")
 
     def fly_display(self):
         if "chkpnt1" in self.lock_chkpoint:
             self.fly_complete = GameObj(self.checkpoint1.x, self.checkpoint1.y, 40, 40)
+            self.fly_complete.draw(self.window, (0, 0, 100))
+        if "chkpnt2" in self.lock_chkpoint:
+            self.fly_complete = GameObj(self.checkpoint2.x, self.checkpoint2.y, 40, 40)
+            self.fly_complete.draw(self.window, (0, 0, 100))
+        if "chkpnt3" in self.lock_chkpoint:
+            self.fly_complete = GameObj(self.checkpoint3.x, self.checkpoint3.y, 40, 40)
+            self.fly_complete.draw(self.window, (0, 0, 100))
+        if "chkpnt4" in self.lock_chkpoint:
+            self.fly_complete = GameObj(self.checkpoint4.x, self.checkpoint4.y, 40, 40)
+            self.fly_complete.draw(self.window, (0, 0, 100))
+        if "chkpnt5" in self.lock_chkpoint:
+            self.fly_complete = GameObj(self.checkpoint5.x, self.checkpoint5.y, 40, 40)
             self.fly_complete.draw(self.window, (0, 0, 100))
         
