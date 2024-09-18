@@ -1,4 +1,4 @@
 import pygame
 from game import Game
 
-dnew_game = Game()
+d5new_game = Game()
