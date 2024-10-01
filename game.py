@@ -42,7 +42,7 @@ class Game:
         self.lock_chkpoint = []
 
         self.background_behind = GameObj(0, 0, 1000, 800)
-        self.death_screen = GameObj(0, 0, 1000, 800)
+        self.end_scene = GameObj(0, 0, 1000, 800)
         self.player_speed = 40
         self.score = 0
         self.has_fly = 0
@@ -110,7 +110,7 @@ class Game:
         self.player.draw(self.window, (0, 255, 0))
 
         if self.lives <= 0:
-            self.death_screen.draw(self.window, (0, 0, 0))
+            self.end_scene.draw(self.window, (0, 0, 0))
         
         pygame.display.update()
 
@@ -208,6 +208,7 @@ class Game:
                     self.limit_chk1 += 1
                     self.lock_chkpoint.append("chkpnt1")
                     print(self.has_fly)
+                    self.check_win()
         if self.player.get_hitbox().colliderect(self.checkpoint2.get_hitbox()) == True and self.has_fly >= 1:
             if self.limit_chk2 == 0: 
                 if self.has_fly >= 1:    
@@ -217,6 +218,7 @@ class Game:
                     self.limit_chk2 += 1
                     self.lock_chkpoint.append("chkpnt2")
                     print(self.has_fly)
+                    self.check_win()
         if self.player.get_hitbox().colliderect(self.checkpoint3.get_hitbox()) == True and self.has_fly >= 1:
             if self.limit_chk3 == 0:
                 if self.has_fly >= 1:     
@@ -226,6 +228,7 @@ class Game:
                     self.limit_chk3 += 1
                     self.lock_chkpoint.append("chkpnt3")
                     print(self.has_fly)
+                    self.check_win()
         if self.player.get_hitbox().colliderect(self.checkpoint4.get_hitbox()) == True and self.has_fly >= 1:
             if self.limit_chk4 == 0:
                 if self.has_fly >= 1:
@@ -235,6 +238,7 @@ class Game:
                     self.limit_chk4 += 1
                     self.lock_chkpoint.append("chkpnt4")
                     print(self.has_fly)
+                    self.check_win()
         if self.player.get_hitbox().colliderect(self.checkpoint5.get_hitbox()) == True and self.has_fly >= 1:
             if self.limit_chk5 == 0:     
                 if self.has_fly >= 1:
@@ -244,6 +248,7 @@ class Game:
                     self.limit_chk5 += 1
                     self.lock_chkpoint.append("chkpnt5")
                     print(self.has_fly)
+                    self.check_win()
 
     def fly_display(self):
         if "chkpnt1" in self.lock_chkpoint:
@@ -270,3 +275,8 @@ class Game:
         if self.lives <= 0:
             print("YOU LOSE")
         print(self.has_fly)
+
+    def check_win(self):
+        if self.score == 1:
+            print("YOU WIN!!")
+            self.end_scene.draw(self.window, (255, 255, 255))
